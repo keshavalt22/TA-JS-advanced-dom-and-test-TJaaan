@@ -1,11 +1,29 @@
-{/* <div class="container">
-<h2>'Genius is one percent inspiration and ninety-nine percent perspiration.'</h2>
-<h3>'Thomas Edison'</h3>
-</div> */}
+let root = document.querySelector("ul");
 
-let h2 = document.querySelector(".quote");
-let h3 = document.querySelector(".writer");
+let max = 3;
+let index = 0;
 
-window.addEventListener('scroll', function() {
-    arrowTop.hidden = (pageYOffset < document.documentElement.clientHeight);
-  });
+function addQuotes(){
+    for(let i = 0; i < max; i++){
+        let li = document.createElement("li");
+        let blockquote = document.createElement("blockquote");
+        let cite = document.createElement("cite");
+        blockquote.innerText = quotes[index].quoteText;
+        cite.innerText = quotes[index].quoteAuthor;
+        li.append(blockquote,cite); 
+
+        root.append(li);
+        index++;
+    }
+}
+
+addQuotes();
+
+document.addEventListener(`scroll`, () => {
+    let scrollTop = document.documentElement.scrollTop;
+    let scrollHeight = document.documentElement.scrollHeight;
+    let clientHeight = document.documentElement.clientHeight;
+    if(scrollTop + clientHeight >= scrollHeight) {
+        addQuotes();
+    }
+});
